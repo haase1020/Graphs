@@ -89,7 +89,27 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        visited = set()
+
+        def dft_visit(vertex):
+            visited.add(vertex)
+            print('vertex for dft recursive', vertex)
+            neighbors = self.get_neighbors(vertex)
+            for neighbor in neighbors:
+                if neighbor not in visited:
+                    dft_visit(neighbor)
+
+        dft_visit(starting_vertex)
+
+    def dft_recursive2(self, start, visited=None):
+        # this version is similar, but subtracts visited in the loop
+        if visited is None:
+            visited = set()
+        visited.add(start)
+        print('start for dft_recursive2', start)
+
+        for next in self.get_neighbors(start) - visited:
+            self.dft_recursive2(next, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -171,6 +191,7 @@ if __name__ == '__main__':
     '''
     graph.dft(1)
     graph.dft_recursive(1)
+    print(graph.dft_recursive2(1))
 
     '''
     Valid BFS path:
