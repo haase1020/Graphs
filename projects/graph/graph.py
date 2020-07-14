@@ -38,6 +38,7 @@ class Graph:
         beginning from starting_vertex.
         """
         q = Queue()
+        # enqueue our starting node
         q.enqueue(starting_vertex)
 
         # keep track of visited nodes
@@ -46,19 +47,17 @@ class Graph:
         # repeat until queue is empty
         while q.size() > 0:
             # dequeue first vert
-            current = q.dequeue()
+            current_node = q.dequeue()
             # if not visited:
-            if current not in visited:
-                print('current', current)
+            if current_node not in visited:
                 # mark as visited
-                visited.add(current)
-
-                # get its neighbors. If not yet visited, but make visited and add to the queue.
-                neighbors = self.get_neighbors(current)
+                print(current_node)
+                visited.add(current_node)
+                # get its neighbors
+                neighbors = self.get_neighbors(current_node)
                 for neighbor in neighbors:
-                    if neighbor not in visited:
-                        visited.add(neighbor)
-                        q.enqueue(neighbor)
+                    # add to queue
+                    q.enqueue(neighbor)
 
     def dft(self, starting_vertex):
         """
@@ -66,31 +65,27 @@ class Graph:
         beginning from starting_vertex.
         """
         # make a stack
+        s = Stack()
         # push on our starting node
-        # make a set to track if we'vebeen here before
-        # while our stack isn't empty
-        # pop off whatever's on top, this is current_node
-        # if we haven't visited this vertice before
-        # mark as visited
-        # gets its neighbors
-        # for each of the neighbors
-        # add to our stack
-        # similar to bft except using a stack instead of a queue
+        s.push(starting_vertex)
+        # make a set to track if we've been here before
         visited = set()
-        stack = Stack()
-
-        visited.add(starting_vertex)
-        stack.push(starting_vertex)
-
-        while stack.size() > 0:
-            current = stack.pop()
-            visited.add(current)
-            print('current for dft', current)
-            neighbors = self.get_neighbors(current)
-            for neighbor in neighbors:
-                if neighbor not in visited:
-                    visited.add(neighbor)
-                    stack.push(neighbor)
+        # while our stack isn't empty
+        while s.size() > 0:
+            # pop off whatever's on top, this is current_node
+            current_node = s.pop()
+        # if we haven't visited this vertice before
+            if current_node not in visited:
+                # run function/print
+                print(current_node)
+        # mark as visited
+                visited.add(current_node)
+        # gets its neighbors
+                neighbors = self.get_neighbors(current_node)
+        # for each of the neighbors
+                for neighbor in neighbors:
+                    # add to our stack
+                    s.push(neighbor)
 
     def dft_recursive(self, starting_vertex, visited=set()):
         """
@@ -100,14 +95,14 @@ class Graph:
         This should be done using recursion.
         """
         # mark this vertex as visited
-        # for each neighbor
-        # if it's not visited
-        # recurse on the neighbor
         visited.add(starting_vertex)
         print(starting_vertex)
+        # for each neighbor
         neighbors = self.get_neighbors(starting_vertex)
         for neighbor in neighbors:
+            # if it's not visited
             if neighbor not in visited:
+                # recurse on the neighbor
                 self.dft_recursive(neighbor, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
@@ -116,30 +111,35 @@ class Graph:
         starting_vertex to destination_vertex in
         breadth-first order.
         """
+        # make a queue
         q = Queue()
+        # make a set to track nodes we've visited
         visited = set()
 
         path = [starting_vertex]
         q.enqueue(path)
-
+        # while queue isn't empty
         while q.size() > 0:
+            # dequeue the path at the front of the line
             current_path = q.dequeue()
             current_node = current_path[-1]
-
+            # if this node is our target node
             if current_node == destination_vertex:
+                # return it!! return TRUE
                 return current_path
-
+            # if not visited
             if current_node not in visited:
+                # mark as visited
                 visited.add(current_node)
-
+            # get it's neighbors
                 neighbors = self.get_neighbors(current_node)
+            # for each neighbor
                 for neighbor in neighbors:
-                    current_path.append(neighbor)
-
+                    # copy path so we don't mutate the original path for different nodes
                     path_copy = current_path[:]
                     path_copy.append(neighbor)
-
-                    q.enqueue(current_path[neighbor])
+                    # add to our queue
+                    q.enqueue(path_copy)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -181,15 +181,23 @@ class Graph:
 
         This should be done using recursion.
         """
+        # mark our node as visited
         visited.add(vertex)
+        # check if it's out target node, if so return
         if vertex == destination_vertex:
             return path
 
+        if len(path) == 0:
+            path.append(vertex)
+        # iterate over neighbors
         neighbors = self.get_neighbors(vertex)
+        # check if visited
         for neighbor in neighbors:
             if neighbor not in visited:
+                # if not, recurse with a path
                 result = self.dfs_recursive(
-                    neighbor, destinations_vertex, path + [neighbor], visited)
+                    neighbor, destination_vertex, path + [neighbor], visited)
+                # if this recursion returns a path
                 if result is not None:
                     return result
 
