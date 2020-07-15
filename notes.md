@@ -8,7 +8,7 @@ Solving Graph Problems!!
 2. Build your graph, or write your getNeighbors()
    Figure out how to get the node's edges
 
-3. Choose your algorithm, and apply it
+3. Choose your algorithm, and apply it (choose your fighter)
 
 EXAMPLE
 
@@ -33,4 +33,4 @@ end_word = "boat"
    nodes: words
    There's an edge if words are different by one letter, and both are in the word list
 
-______________________
+---

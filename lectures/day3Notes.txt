@@ -1,0 +1,10 @@
+when is DFS a better choice?
+* maybe if you want longest path, or most relations
+* might be faster, since if goes to a leaf first
+
+If visiting all nodes, then either will work: O(n)
+
+* can do it recursively
+
+When is BFS a better choice?
+* shortest path

@@ -1,20 +1,24 @@
-from util import Queue
+
 import string
 
-# Build our graph
-# Could filter our word list by length
-# remember to lower case stuff
 
-# filtered_word_list = filter()
-# for word1 in word_list:
-#     for word2 in word_list:
-#         if one_letter_off(word1, word2):
-#             Graph.add_edge
+class Queue():
+    def __init__(self):
+        self.queue = []
 
-# len(word) * 26
-# O(n * 26)
-# O(26n)
-# O(n)
+    def enqueue(self, value):
+        self.queue.append(value)
+
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+
+    def size(self):
+        return len(self.queue)
+
+
 my_file = open('words.txt', 'r')
 words = my_file.read().split("\n")
 my_file.close()
