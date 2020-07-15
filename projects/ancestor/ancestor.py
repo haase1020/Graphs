@@ -20,20 +20,20 @@ def earliest_ancestor(ancestors, starting_node):
 
     # add the vertices
     for pair in ancestors:
+        print(('pair[0]', pair[0]))
         if not pair[0] in graph.vertices:
             graph.add_vertex(pair[0])
         if not pair[1] in graph.vertices:
             graph.add_vertex(pair[1])
 
-    print(graph)
     for item in sorted(graph.vertices.keys()):
-        print(item)
+        print('graph.vertices.keys()', graph.vertices.keys())
 
     # add edges
     for pair in ancestors:
         graph.add_edge(pair[1], pair[0])
 
-    print(graph)
+    print('graph vertices', graph.vertices)
     for item in graph.vertices:
         print(f' item: {item}: {graph.vertices[item]}')
     # do a modified dft which saves the paths so that can later find longest path
