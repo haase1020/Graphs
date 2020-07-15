@@ -40,3 +40,26 @@ for v in graph.vertexes:
 ## Exercises
 
 Draw a graph of 8 vertexes with 3 connected components.
+
+### My notes from CS29 Beej Jorgensen
+parts of the graph that are connected but disjoint from other parts of the graph.
+....assume for examples using undirected graphs
+
+For each node:
+    if node not visited:
+    traverse from that node
+    increment counter
+
+Graph:       
+    nodes = [1,2,3,4,5] ## using array
+    edges: [(1,2), (2,3),(3,4),(4,5)]
+
+counter = 3
+
+Graph: 
+    nodes = [(1,(2)),2,(3,(4,6),4,5] ## using adjacency list
+    edges: [(1,2), (2,3),(3,4),(4,5)]
+
+
+## questions
+difference between linked list and array
