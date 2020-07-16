@@ -8,10 +8,10 @@ from ast import literal_eval
 # Load world
 world = World()
 
-
+# 500 rooms
 # You may uncomment the smaller graphs for development and testing purposes.
-# map_file = "maps/test_line.txt"
-map_file = "maps/test_cross.txt"
+map_file = "maps/test_line.txt"
+# map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
 # map_file = "maps/main_maze.txt"
@@ -59,3 +59,8 @@ while True:
         break
     else:
         print("I did not understand that command.")
+
+# my additions from readme
+# player.current_room.id
+# player.current_room.get_exits()
+# player.travel(directions)
