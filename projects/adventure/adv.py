@@ -31,6 +31,8 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
+# My code starts here
+
 
 def reversal_path(direction):
     if direction == "n":
