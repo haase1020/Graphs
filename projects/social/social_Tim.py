@@ -36,13 +36,12 @@ class SocialGraph:
         """
         if user_id == friend_id:
             return False
-            print("WARNING: You cannot be friends with yourself")
         elif friend_id in self.friendships[user_id] or user_id in self.friendships[friend_id]:
-            print("WARNING: Friendship already exists")
             return False
         else:
             self.friendships[user_id].add(friend_id)
             self.friendships[friend_id].add(user_id)
+            return True
 
     def add_user(self, name):
         """
@@ -106,24 +105,24 @@ class SocialGraph:
         self.users = {}
         self.friendships = {}
 
-        # add users
+        # Add users
         # use num_users
         for user in range(num_users):
             self.add_user(user)
+
         # linear way to add the number of friendships we need?
-        # along as we haven't made all the friendships we need
         target_number_friendships = num_users * avg_friendships
         friendships_created = 0
+        # as long as we haven't made all the friendships we need
         while friendships_created < target_number_friendships:
+            # pick 2 random numbers between 1 and the last id
             friend_one = random.randint(1, self.last_id)
             friend_two = random.randint(1, self.last_id)
-        # pick 2 random numbers between 1 and the last id
         # try to create that friendship
-        self.add_friendship(friend_one, friend_two)
+            friendship_was_made = self.add_friendship(friend_one, friend_two)
         # if we can, increment friendships by 2
-        friendship_was_made = self.add_friendship(friend_one, friend_two)
-        if friendships_was_made:
-            friendships_created += 2
+            if friendship_was_made:
+                friendships_created += 2
 
     def get_all_social_paths(self, user_id):
         """
@@ -167,26 +166,41 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
+
+    num_users = 100
+    avg_friendships = 90
+
     start_time = time.time()
-    sg.populate_graph(1000, 5)
+    sg.populate_graph(num_users, avg_friendships)
     end_time = time.time()
-    print(sg.friendships)
-    connections = sg.get_all_social_paths(1)
-    print(connections)
+
+    print(f"Populate graph O(n^2): {end_time - start_time}")
+
+    start_time = time.time()
+    sg.linear_populate_graph(num_users, avg_friendships)
+    end_time = time.time()
+
+    print(f"Populate graph linear: {end_time - start_time}")
+
+    # connections = sg.get_all_social_paths(1)
+    # print(connections)
+
     # what percentage of total users are in our extended social network?
 
     # how many people we know, divided by how many people there are
-    print(f'{(len(connections) -1) / 1000 * 100}%')
-    # traverse a user's extended connections, gather lenghts, sum
-    total_lengths = 0
-    for friend in connections:
-        total_lengths += len(connections[friend])
-    # traverse a user's extended connections,
-    #  gather lengths, sum, divide by number of friends in connected components
-    print(f'avg degree of separation: {total_lengths/ len(connections)}')
-    start_time = time.time()
-    sg.linear_populate_graph(1000, 5)
-    end_time = time.time()
+    # print(f'{(len(connections) - 1) / 1000 * 100}%')
 
-    print('finished again')
-    print(f'amount of linear time spent is: {start_time - end_time}')
+    # What is the average degree of separation between a user and those in his/her extended network?
+    # average length of a path to each user
+    # traverse a user's extended connections, gather lengths, sum,
+    # total_lengths = 0
+    # for friend in connections:
+    #     total_lengths += len(connections[friend])
+    # # divide by number of friends in connected component aka extended social network
+
+    # print(f'Average degree of separation: {total_lengths / len(connections)}')
+
+#n = [len(v) for k, v in connections.items() if k != 1]
+    # print(sum(n) / len(n))
+
+# sum([len(connection) for connection in connections])/len(connections)
