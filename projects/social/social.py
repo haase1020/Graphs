@@ -3,6 +3,11 @@ import math
 import time
 import sys
 
+'''
+Total_friendship = 100*10 = 1000 Total call to add friendship 
+will be Total_friendship//2 = 1000//2 =500
+'''
+
 
 class Queue():
     def __init__(self):
@@ -104,6 +109,7 @@ class SocialGraph:
             v = path[-1]
             if v not in visited:
                 visited[v] = path  # mark as visited, and remember path so far
+
                 for neighbor in self.friendships[v]:
                     q.enqueue(path + [neighbor])  # make a new path
                     # path_copy = list(path)
@@ -120,7 +126,15 @@ if __name__ == '__main__':
     end_time = time.time()
     print(f"funtime: {end_time - start_time} seconds")
     print(sg.friendships)
-    sys.exit(0)
+    # sys.exit(0)
 
-    connections = sg.get_all_social_paths(1)
-    print(connections)
+    for i in range(1, 300):
+        connections = sg.get_all_social_paths(i)
+        # print(connections)
+
+        users_in_ext_network = len(connections) - 1
+        total_users = len(sg.users)
+        percentage = users_in_ext_network / total_users * 100
+
+        # if percentage < 94:
+        print(f'percentage: {users_in_ext_network / total_users * 100:.2f}')

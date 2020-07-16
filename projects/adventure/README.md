@@ -4,11 +4,10 @@ You are provided with a pre-generated graph consisting of 500 rooms. You are res
 
 Open `adv.py`. There are four parts to the provided code:
 
-* World generation code. Do not modify this!
-* An incomplete list of directions. Your task is to fill this with valid traversal directions.
-* Test code. Run the tests by typing `python3 adv.py` in your terminal.
-* REPL code. You can uncomment this and run `python3 adv.py` to walk around the map.
-
+- World generation code. Do not modify this!
+- An incomplete list of directions. Your task is to fill this with valid traversal directions.
+- Test code. Run the tests by typing `python3 adv.py` in your terminal.
+- REPL code. You can uncomment this and run `python3 adv.py` to walk around the map.
 
 You may find the commands `player.current_room.id`, `player.current_room.get_exits()` and `player.travel(direction)` useful.
 
@@ -45,11 +44,39 @@ You can find the path to the shortest unexplored room by using a breadth-first s
 
 If all paths have been explored, you're done!
 
+## notes from Beej's lecture
+
+** you can backtrack! so if you go north and need to backtrack, need to tell user to go south
+** graph is undirected
+** want to do DFT (like a maze solving problem)
+** there are no islands
+
+- returning a list of nodes traversed [n,e,w,s,s,e,e,n,w]
+- will be working in adv.py (don't need to change other files)
+
+* we want a list of directions to guide us step-by-step
+* traversal will just visit all the nodes (so can't just use traversal)
+* as you traverse, need to keep track of where you are going
+* there are loops, so want to finish longest loop last so don't have to backtrack
+* when hit deadend, find nearest unexplored exit
+
+## notes from Tim:
+
+Translating into graph terminology:
+Nodes: rooms
+Edges: exits
+
+- create adj. list representation of graph,
+- run a traversal to build the graph
+- backtrack until you get a room that has a question mark (unexplored)
+
+\*\* what are we returning? Are we simply doing a traversal or search?
+
 ## Minimum Viable Product
 
-* __1__: Tests do not pass
-* __2__: Tests pass with `len(traversal_path) <= 2000`
-* __3__: Tests pass with `len(traversal_path) < 960`
+- **1**: Tests do not pass
+- **2**: Tests pass with `len(traversal_path) <= 2000`
+- **3**: Tests pass with `len(traversal_path) < 960`
 
 ## Stretch Problems
 
@@ -57,11 +84,9 @@ It is very difficult to calculate the shortest possible path that traverses the 
 
 My best path is 957 moves. Can you find a shorter path?
 
-
 ## Rubric
-| OBJECTIVE | TASK | 1 - DOES NOT MEET Expectations | 2 - MEETS Expectations | 3 - EXCEEDS Expectations | SCORE |
-| ---------- | ----- | ------- | ------- | ------- | -- |
-| _Student can demonstrate applied knowledge of Graph Theory by traversing a large map_ | Complete traversal of a large Graph | Student unable to produce a valid traversal path of 2000 moves or less | Student is able to produce a valid traversal path between 960 and 2000 | Student produces a valid traversal path of 959 moves or less |  |
-| **FINAL SCORE** | | **0-1** | **2** | **3** |  |
 
-
+| OBJECTIVE                                                                             | TASK                                | 1 - DOES NOT MEET Expectations                                         | 2 - MEETS Expectations                                                 | 3 - EXCEEDS Expectations                                     | SCORE |
+| ------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ | ----- |
+| _Student can demonstrate applied knowledge of Graph Theory by traversing a large map_ | Complete traversal of a large Graph | Student unable to produce a valid traversal path of 2000 moves or less | Student is able to produce a valid traversal path between 960 and 2000 | Student produces a valid traversal path of 959 moves or less |       |
+| **FINAL SCORE**                                                                       |                                     | **0-1**                                                                | **2**                                                                  | **3**                                                        |       |
