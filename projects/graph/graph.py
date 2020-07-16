@@ -51,13 +51,14 @@ class Graph:
             # if not visited:
             if current_node not in visited:
                 # mark as visited
-                print(current_node)
+                print('current node in bft', current_node)
                 visited.add(current_node)
                 # get its neighbors
                 neighbors = self.get_neighbors(current_node)
                 for neighbor in neighbors:
                     # add to queue
                     q.enqueue(neighbor)
+                    print('current node in bft again', current_node)
 
     def dft(self, starting_vertex):
         """
@@ -77,7 +78,7 @@ class Graph:
         # if we haven't visited this vertice before
             if current_node not in visited:
                 # run function/print
-                print(current_node)
+                print('current node dft', current_node)
         # mark as visited
                 visited.add(current_node)
         # gets its neighbors
@@ -86,6 +87,8 @@ class Graph:
                 for neighbor in neighbors:
                     # add to our stack
                     s.push(neighbor)
+                    print('current node dft2', current_node)
+                    print('neighbors dft2', neighbors)
 
     def dft_recursive(self, starting_vertex, visited=set()):
         """
