@@ -36,7 +36,7 @@ traversal_path = []
 # create function to backtrack
 
 
-def reversal_path(direction):
+def reversePath(direction):
     if direction == "n":
         return "s"
     elif direction == "s":
@@ -49,7 +49,7 @@ def reversal_path(direction):
 # move through rooms
 
 
-def traverse_map(starting_room):
+def traverseRooms(starting_room):
     stack = Stack()  # DF
     visited = set()
     # identify where player is starting from
@@ -68,7 +68,6 @@ def traverse_map(starting_room):
                     print('path', path)
         # if exit has not been visited, travel to that exit
         visited.add(player.current_room)
-        print('player.current_room', player.current_room)
 
         if len(path) != 0:
             # generate random movement
@@ -84,13 +83,13 @@ def traverse_map(starting_room):
             # return last from stack
             last = stack.pop()
             # backtrack
-            player.travel(reversal_path(last))
+            player.travel(reversePath(last))
             # add to travel_path
-            traversal_path.append(reversal_path(last))
+            traversal_path.append(reversePath(last))
 
 
 # call the function starting at 0
-traverse_map(0)
+traverseRooms(0)
 
 # TRAVERSAL TEST - DO NOT CHANGE
 visited_rooms = set()
