@@ -33,6 +33,8 @@ traversal_path = []
 
 # My code starts here
 
+# create function to backtrack
+
 
 def reversal_path(direction):
     if direction == "n":
@@ -44,37 +46,50 @@ def reversal_path(direction):
     elif direction == "w":
         return "e"
 
+# move through rooms
+
 
 def traverse_map(starting_room):
     stack = Stack()  # DF
     visited = set()
+    # identify where player is starting from
     starting_room = player.current_room
-    # itereate through exits
+    # iterate through exits
+    # loop through until all room visited
     while len(visited) < len(world.rooms):
+        # create a path list to record path travelled
         path = []
         for room_exit in player.current_room.get_exits():
+            # if an exit exists
             if room_exit is not None:
                 if player.current_room.get_room_in_direction(room_exit) not in visited:
+                    # append room_exit if not already visited
                     path.append(room_exit)
+                    print('path', path)
         # if exit has not been visited, travel to that exit
-        # player.travel(room_exit)
         visited.add(player.current_room)
+        print('player.current_room', player.current_room)
 
         if len(path) != 0:
+            # generate random movement
+            # randint() has (start, end) values so go one less than path or goes out of range
             move = random.randint(0, len(path) - 1)
             stack.push(path[move])
+            # move from one room to the next
             player.travel(path[move])
+            # add to travel_path
             traversal_path.append(path[move])
 
         else:
+            # return last from stack
             last = stack.pop()
+            # backtrack
             player.travel(reversal_path(last))
+            # add to travel_path
             traversal_path.append(reversal_path(last))
 
 
-# check to see if at a dead end
-# if at a dead end move in reverse until get to a room that is not visited
-# figure out how to update traversal path
+# call the function starting at 0
 traverse_map(0)
 
 # TRAVERSAL TEST - DO NOT CHANGE
